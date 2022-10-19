@@ -1,31 +1,22 @@
 ﻿using Amazon.Runtime;
 using Amazon.SQS;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace ConsoleAmazonSNSClient.Extensions
 {
     public static class Acceess
     {
-        public static string GetRoute()
-        {
-            return GetSeetings().GetValue<string>("Queue");
-        }
-        public static string GetTopiARN()
-        {
-            return GetSeetings().GetValue<string>("SNS_ARN");
-        }
-        public static IConfigurationRoot GetSeetings()
-        {
-            return new ConfigurationBuilder()
+        public static string GetRoute() => GetSeetings().GetValue<string>("Queue");
+
+        public static string GetTopiARN() => GetSeetings().GetValue<string>("SNS_ARN");
+
+        public static IConfigurationRoot GetSeetings() => new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())
                .AddJsonFile("appsetttings.json")
-               .AddEnvironmentVariables() 
+               .AddEnvironmentVariables()
                .Build();
-        }
+        
         public static AmazonSQSClient GetCredentials()
         {
             var accessKey = GetSeetings().GetValue<string>("AccessKey");

@@ -18,25 +18,25 @@ namespace ConsoleAmazonSNSClient
         {
             try
             {
-                int count = 20;
+                int count = 50;
                 do
                 {
                     var request = new PublishRequest
                     {
+
                         TopicArn = Acceess.GetTopiARN(),
                         Message = JsonSerializer.Serialize(new EnvioTitulo
                         {
+
                             idLinha = Guid.NewGuid().ToString(),
-                            codEspecieDoc = "2342223232",
-                            seuNumero = "122233455555",
+                            codEspecieDoc = "22222222",
+                            seuNumero = "33333333",
                             dataVencimento = DateTime.Now
                         }),Subject= $"ENVIO TITUTLOS MARCUS {DateTime.Now.ToString()}"
                     };
                     await snsClient.PublishAsync(request);
                     count--;
                 } while (count > 0);
-               
-
             }
             catch(Exception ex)
             {
